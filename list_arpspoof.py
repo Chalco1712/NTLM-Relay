@@ -21,7 +21,7 @@ def main():
 
 	while True:
     		sendp(packet, iface=iface)
-    		time.sleep(10)
+    		time.sleep(2)
 
 
 
@@ -39,7 +39,7 @@ except KeyboardInterrupt:
 
 	for x in range(3):
     		sendp(packet, iface=iface)
-    		time.sleep(10)
+    		time.sleep(2)
 	try:
 		sys.exit(0)
 	except SystemExit:
