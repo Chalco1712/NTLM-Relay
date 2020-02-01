@@ -9,9 +9,9 @@ def handle_packet(packet):
         print("New packet:")
         print(packet.show())
         print("Sending packet")
-        resp_packet = sr(packet)
-        print("Response:")
-        print(resp_packet.show())
+        resp_packet = sr(packet, timeout=1)
+        #print("Response:")
+        #print(resp_packet.show())
     if (packet[IP].src == "10.10.10.4" and packet[IP].dst == "10.10.10.89"):
         print("Captured altered packet from 10.10.10.4:")
         print(packet.show())
@@ -20,9 +20,9 @@ def handle_packet(packet):
         print("New altered packet:")
         print(packet.show())
         print("Sending packet")
-        resp_packet = sr(packet)
-        print("Response:")
-        print(resp_packet.show())
+        resp_packet = sr1(packet, timeout=1)
+        #print("Response:")
+        #print(resp_packet.show())
     if (packet[IP].src == "10.10.10.3" and packet[IP].dst == "10.10.10.89"):
         print("Captured altered packet from 10.10.10.3:")
         print(packet.show())
@@ -31,9 +31,9 @@ def handle_packet(packet):
         print("New altered packet:")
         print(packet.show())
         print("Sending packet")
-        resp_packet = sr(packet)
-        print("Response:")
-        print(resp_packet.show())
+        resp_packet = sr1(packet, timeout=1)
+        #print("Response:")
+        #print(resp_packet.show())
         
 
 sniff(prn=handle_packet, filter='ip')
