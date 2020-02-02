@@ -1,15 +1,20 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from scapy.all import *
 import sys
 isFirst = False
+
+
 def handle_packet(packet):
-    print("got packet")
-  
+    print ('got packet')
+
     try:
-        if packet[Raw].load is not None:
-            packet[Raw].load = '\x69'
-        print(packet.show())
+        if packet[SMBNegociate_Protocol_Request_Header].load \
+            is not None:
+            print (packet.show())
+            print ('SMBDATA')
     except:
-        print("error")
+        print ('')
     #send(packet)
     '''
     if( packet[TCP].flags == 'SA' or packet[TCP].flags == 'S' or packet[TCP].flags == 'A'):
@@ -62,6 +67,7 @@ def handle_packet(packet):
         #print(resp_packet.show())
     '''    
 
+print ("LISTENING")
 p = sniff(prn=handle_packet, filter='tcp port 445')
 wrpcap('sniffed.pcap',p)
 

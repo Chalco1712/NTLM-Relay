@@ -3,17 +3,27 @@ from netfilterqueue import NetfilterQueue
 import os
 from scapy.all import *
 
-iptablesr = "iptables -I INPUT -d 192.168.19.0/24 -j NFQUEUE --queue-num 1"
-
+#iptablesr = "iptables -A FORWARD -i eth0 -j ACCEPT"
+#iptablesr2 = "iptables -t nat -A PREROUTING -i eth0 -p icmp -j NFQUEUE --queue-num 1"
+#iptablesr = "iptables -I INPUT -p tcp --dport 445 -j NFQUEUE --queue-num 1"
+iptablesr2 = "iptables -I INPUT -i eth0 -j NFQUEUE --queue-num 1"
+#iptablesr2 = "iptables -A OUTPUT -j NFQUEUE --queue-num 1"
+#iptablesr = "iptables -t nat -A PREROUTING -i eth0 -p icmp -j NFQUEUE --queue-num 1"
+#iptablesr2 = "iptables -"
 
 print("Adding iptable rules")
-print(iptablesr)
-os.system(iptablesr)
+#print(iptablesr)
+print(iptablesr2)
+#os.system(iptablesr)
+os.system(iptablesr2)
 
 def callback(packet):
     data = packet.get_payload()
     pkt = IP(data)
     print(pkt.show())
+    packet.drop()
+    #packet.set_payload(raw(pkt))
+    #packet.accept()
 
 def main():
     q = NetfilterQueue()
